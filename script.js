@@ -34,18 +34,18 @@ function initMap() {
     const customIcon = L.divIcon({
         html: `
             <div style="
-                background: #FF6B35;
+                background: #FCD34D;
                 width: 30px;
                 height: 30px;
                 border-radius: 50% 50% 50% 0;
-                border: 3px solid #1E3A8A;
+                border: 3px solid #1E40AF;
                 transform: rotate(-45deg);
                 display: flex;
                 align-items: center;
                 justify-content: center;
             ">
                 <div style="
-                    color: white;
+                    color: #1E40AF;
                     font-weight: bold;
                     font-size: 12px;
                     transform: rotate(45deg);
@@ -63,9 +63,9 @@ function initMap() {
     // Popup z informacjami
     marker.bindPopup(`
         <div style="text-align: center; padding: 10px;">
-            <strong style="color: #1E3A8A; font-size: 16px;">DAGAS</strong><br>
+            <strong style="color: #1E40AF; font-size: 16px;">DAGAS</strong><br>
             <span style="color: #666;">Transport paliwa i usługi logistyczne</span><br>
-            <span style="color: #FF6B35; font-weight: bold;">Sosnowiec</span><br>
+            <span style="color: #F59E0B; font-weight: bold;">ul. Kukułek 41, Sosnowiec</span><br>
             <small style="color: #888;">
                 ${lat.toFixed(6)}, ${lng.toFixed(6)}
             </small>
@@ -74,8 +74,8 @@ function initMap() {
     
     // Dodanie okręgu pokazującego obszar działania
     L.circle([lat, lng], {
-        color: '#FF6B35',
-        fillColor: '#FF6B35',
+        color: '#F59E0B',
+        fillColor: '#F59E0B',
         fillOpacity: 0.1,
         radius: 2000
     }).addTo(map);
