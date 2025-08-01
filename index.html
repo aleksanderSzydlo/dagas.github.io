@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dagas - Transport Paliwa i Usługi Logistyczne | Sosnowiec</title>
+    <meta name="description" content="Firma Dagas w Sosnowcu - transport paliwa, wynajem parkingu dla tirów, przestrzenie warsztatowe i magazynowe, naprawa pojazdów">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="logo">
+                    <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="5" y="20" width="40" height="15" rx="7" fill="#FF6B35" stroke="#1E3A8A" stroke-width="2"/>
+                        <circle cx="15" cy="35" r="5" fill="#1E3A8A"/>
+                        <circle cx="35" cy="35" r="5" fill="#1E3A8A"/>
+                        <rect x="10" y="15" width="30" height="8" rx="4" fill="#1E3A8A"/>
+                        <text x="25" y="28" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="8">DAGAS</text>
+                    </svg>
+                    <span class="logo-text">DAGAS</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Strona Główna</a></li>
+                    <li><a href="#services">Usługi</a></li>
+                    <li><a href="#about">O Nas</a></li>
+                    <li><a href="#location">Lokalizacja</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>DAGAS</h1>
+                <p class="hero-subtitle">Profesjonalny transport paliwa i kompleksowe usługi logistyczne</p>
+                <p class="hero-location">Sosnowiec, Śląskie</p>
+                <div class="hero-buttons">
+                    <a href="#services" class="btn btn-primary">Nasze Usługi</a>
+                    <a href="#contact" class="btn btn-secondary">Skontaktuj się</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="truck-animation">
+                    <svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="40" width="120" height="30" rx="15" fill="#FF6B35" stroke="#1E3A8A" stroke-width="3"/>
+                        <circle cx="50" cy="80" r="12" fill="#1E3A8A"/>
+                        <circle cx="110" cy="80" r="12" fill="#1E3A8A"/>
+                        <rect x="30" y="25" width="100" height="20" rx="10" fill="#1E3A8A"/>
+                        <text x="80" y="58" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="12">PALIWO</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <div class="container">
+                <h2>Nasze Usługi</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🚛</div>
+                        <h3>Transport Paliwa</h3>
+                        <p>Profesjonalny transport paliwa z wykorzystaniem nowoczesnych cystern i doświadczonych kierowców.</p>
+                        <ul>
+                            <li>Cysterny różnej pojemności</li>
+                            <li>Doświadczeni kierowcy</li>
+                            <li>Transport bezpieczny i terminowy</li>
+                        </ul>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🅿️</div>
+                        <h3>Parking dla TIR-ów</h3>
+                        <p>Bezpieczny wynajem parkingu dla tirów i innych pojazdów ciężkich z całodobową ochroną.</p>
+                        <ul>
+                            <li>Miejsca dla tirów i ciężkich maszyn</li>
+                            <li>Ochrona 24/7</li>
+                            <li>Konkurencyjne ceny</li>
+                        </ul>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🏭</div>
+                        <h3>Wynajem Przestrzeni</h3>
+                        <p>Oferujemy wynajem przestrzeni warsztatowych i magazynowych dostosowanych do Twoich potrzeb.</p>
+                        <ul>
+                            <li>Przestrzenie warsztatowe</li>
+                            <li>Magazyny różnej wielkości</li>
+                            <li>Elastyczne warunki najmu</li>
+                        </ul>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🔧</div>
+                        <h3>Naprawa Pojazdów</h3>
+                        <p>Kompleksowe usługi naprawcze pojazdów ciężkich i lekkich wykonywane przez wykwalifikowanych mechaników.</p>
+                        <ul>
+                            <li>Naprawa pojazdów ciężkich</li>
+                            <li>Serwis pojazdów osobowych</li>
+                            <li>Diagnostyka komputerowa</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>O Firmie DAGAS</h2>
+                        <p>Firma DAGAS to rodzinne przedsiębiorstwo z wieloletnim doświadczeniem w branży transportowej i logistycznej. Działamy w Sosnowcu, oferując kompleksowe usługi związane z transportem paliwa oraz szeroki zakres usług dodatkowych.</p>
+                        
+                        <div class="features">
+                            <div class="feature">
+                                <h4>🏆 Doświadczenie</h4>
+                                <p>Wieloletnie doświadczenie w branży transportu paliwa</p>
+                            </div>
+                            <div class="feature">
+                                <h4>🛡️ Bezpieczeństwo</h4>
+                                <p>Najwyższe standardy bezpieczeństwa w transporcie</p>
+                            </div>
+                            <div class="feature">
+                                <h4>⚡ Niezawodność</h4>
+                                <p>Terminowe realizacje zleceń i profesjonalna obsługa</p>
+                            </div>
+                            <div class="feature">
+                                <h4>🌍 Lokalizacja</h4>
+                                <p>Strategiczna lokalizacja w centrum Śląska</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <div class="image-placeholder">
+                            <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="300" height="200" fill="#f0f0f0" stroke="#ddd"/>
+                                <rect x="50" y="80" width="200" height="40" rx="20" fill="#FF6B35"/>
+                                <circle cx="100" cy="140" r="15" fill="#1E3A8A"/>
+                                <circle cx="200" cy="140" r="15" fill="#1E3A8A"/>
+                                <text x="150" y="105" text-anchor="middle" fill="white" font-weight="bold" font-size="16">DAGAS</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="location" class="location">
+            <div class="container">
+                <h2>Nasza Lokalizacja</h2>
+                <div class="location-content">
+                    <div class="location-info">
+                        <h3>Znajdziesz nas w Sosnowcu</h3>
+                        <p>Naша firma znajduje się w strategicznym punkcie Sosnowca, co zapewnia łatwy dostęp do głównych tras komunikacyjnych regionu śląskiego.</p>
+                        <div class="coordinates">
+                            <strong>Współrzędne GPS:</strong><br>
+                            Szerokość: 50.28196061508645<br>
+                            Długość: 19.16098499012522
+                        </div>
+                        <div class="location-features">
+                            <div class="location-feature">
+                                <span class="icon">📍</span>
+                                <span>Centrum Sosnowca</span>
+                            </div>
+                            <div class="location-feature">
+                                <span class="icon">🛣️</span>
+                                <span>Dostęp do głównych tras</span>
+                            </div>
+                            <div class="location-feature">
+                                <span class="icon">🚛</span>
+                                <span>Infrastruktura dla pojazdów ciężkich</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="map-container">
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Skontaktuj się z nami</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Informacje kontaktowe</h3>
+                        <div class="contact-item">
+                            <span class="icon">📧</span>
+                            <div>
+                                <strong>Email:</strong><br>
+                                kontakt@dagas.pl
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">📞</span>
+                            <div>
+                                <strong>Telefon:</strong><br>
+                                +48 123 456 789
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">📍</span>
+                            <div>
+                                <strong>Adres:</strong><br>
+                                Sosnowiec, woj. śląskie
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">🕒</span>
+                            <div>
+                                <strong>Godziny pracy:</strong><br>
+                                Pon-Pt: 7:00 - 18:00<br>
+                                Sob: 8:00 - 14:00
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <h3>Wyślij wiadomość</h3>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" placeholder="Imię i nazwisko" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" placeholder="Telefon">
+                            </div>
+                            <div class="form-group">
+                                <select>
+                                    <option value="">Wybierz usługę</option>
+                                    <option value="transport">Transport paliwa</option>
+                                    <option value="parking">Parking dla TIR-ów</option>
+                                    <option value="wynajem">Wynajem przestrzeni</option>
+                                    <option value="naprawa">Naprawa pojazdów</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <textarea placeholder="Wiadomość" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Wyślij wiadomość</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <svg width="40" height="40" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="20" width="40" height="15" rx="7" fill="#FF6B35" stroke="#1E3A8A" stroke-width="2"/>
+                            <circle cx="15" cy="35" r="5" fill="#1E3A8A"/>
+                            <circle cx="35" cy="35" r="5" fill="#1E3A8A"/>
+                            <rect x="10" y="15" width="30" height="8" rx="4" fill="#1E3A8A"/>
+                            <text x="25" y="28" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="8">DAGAS</text>
+                        </svg>
+                        <span>DAGAS</span>
+                    </div>
+                    <p>Profesjonalny transport paliwa i usługi logistyczne w Sosnowcu</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Usługi</h4>
+                    <ul>
+                        <li>Transport paliwa</li>
+                        <li>Parking dla TIR-ów</li>
+                        <li>Wynajem przestrzeni</li>
+                        <li>Naprawa pojazdów</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Kontakt</h4>
+                    <ul>
+                        <li>kontakt@dagas.pl</li>
+                        <li>+48 123 456 789</li>
+                        <li>Sosnowiec, Śląskie</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 DAGAS. Wszystkie prawa zastrzeżone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
