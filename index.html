@@ -16,21 +16,7 @@
         <nav class="nav">
             <div class="nav-container">
                 <div class="logo">
-                    <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Główna cysterny -->
-                        <ellipse cx="25" cy="28" rx="18" ry="12" fill="#FCD34D" stroke="#1E40AF" stroke-width="2"/>
-                        <!-- Kabina -->
-                        <rect x="5" y="20" width="12" height="16" rx="3" fill="#1E40AF"/>
-                        <!-- Koła -->
-                        <circle cx="12" cy="38" r="4" fill="#374151"/>
-                        <circle cx="25" cy="38" r="4" fill="#374151"/>
-                        <circle cx="38" cy="38" r="4" fill="#374151"/>
-                        <!-- Detale cysterny -->
-                        <circle cx="25" cy="28" r="3" fill="#1E40AF"/>
-                        <rect x="20" y="26" width="10" height="4" rx="2" fill="#1E40AF"/>
-                        <!-- Napis DAGAS -->
-                        <text x="25" y="30" text-anchor="middle" fill="#1E40AF" font-family="Arial, sans-serif" font-weight="bold" font-size="6">DAGAS</text>
-                    </svg>
+                    <img src="galeria/logo przeźroczyste-ikona.png" alt="DAGAS Logo" class="logo-image">
                     <span class="logo-text">DAGAS</span>
                 </div>
                 <ul class="nav-menu">
@@ -40,6 +26,12 @@
                     <li><a href="#location">Lokalizacja</a></li>
                     <li><a href="#contact">Kontakt</a></li>
                 </ul>
+                <div class="nav-actions">
+                    <a href="#contact" class="nav-contact-btn">
+                        <span class="contact-icon">📞</span>
+                        <span>Kontakt</span>
+                    </a>
+                </div>
                 <div class="hamburger">
                     <span></span>
                     <span></span>
@@ -51,33 +43,73 @@
 
     <main>
         <section id="home" class="hero">
-            <div class="hero-content">
-                <h1>DAGAS</h1>
-                <p class="hero-subtitle">Profesjonalny transport paliwa i kompleksowe usługi logistyczne</p>
-                                        <p class="hero-location">Sosnowiec, ul. Kukułek 41</p>
-                <div class="hero-buttons">
-                    <a href="#services" class="btn btn-primary">Nasze Usługi</a>
-                    <a href="#contact" class="btn btn-secondary">Skontaktuj się</a>
-                </div>
+            <div class="hero-background">
+                <div class="hero-overlay"></div>
             </div>
-            <div class="hero-visual">
-                <div class="truck-animation">
-                    <svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Główna cysterny -->
-                        <ellipse cx="120" cy="50" rx="60" ry="20" fill="#FCD34D" stroke="#1E40AF" stroke-width="3"/>
-                        <!-- Kabina -->
-                        <rect x="20" y="30" width="30" height="25" rx="5" fill="#1E40AF"/>
-                        <!-- Koła -->
-                        <circle cx="35" cy="75" r="8" fill="#374151"/>
-                        <circle cx="80" cy="75" r="8" fill="#374151"/>
-                        <circle cx="120" cy="75" r="8" fill="#374151"/>
-                        <circle cx="160" cy="75" r="8" fill="#374151"/>
-                        <!-- Detale cysterny -->
-                        <circle cx="120" cy="50" r="8" fill="#1E40AF"/>
-                        <rect x="100" y="45" width="40" height="10" rx="5" fill="#1E40AF"/>
-                        <!-- Napis -->
-                        <text x="120" y="55" text-anchor="middle" fill="#1E40AF" font-family="Arial, sans-serif" font-weight="bold" font-size="12">PALIWO</text>
-                    </svg>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <div class="hero-badge">
+                            <span>🚛</span>
+                            <span>Profesjonalne usługi transportowe</span>
+                        </div>
+                        <h1 class="hero-title">
+                            <span class="hero-title-main">DAGAS</span>
+                            <span class="hero-title-sub">Transport & Logistyka</span>
+                        </h1>
+                        <p class="hero-description">
+                            Kompleksowe rozwiązania transportowe i logistyczne w regionie śląskim. 
+                            Specjalizujemy się w transporcie paliwa, materiałów sypkich oraz 
+                            świadczymy usługi spawalnicze i wynajmu przestrzeni.
+                        </p>
+                        <div class="hero-location">
+                            <div class="location-pin">📍</div>
+                            <span>Sosnowiec, ul. Kukułek 41</span>
+                        </div>
+                        <div class="hero-actions">
+                            <a href="#services" class="btn btn-primary">
+                                <span>Poznaj nasze usługi</span>
+                                <i class="arrow">→</i>
+                            </a>
+                            <a href="#contact" class="btn btn-secondary">
+                                <span>Skontaktuj się</span>
+                            </a>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <div class="stat-number">15+</div>
+                                <div class="stat-label">Lat doświadczenia</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">Dostępność</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">500+</div>
+                                <div class="stat-label">Zrealizowanych zleceń</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="hero-logo-container">
+                            <img src="galeria/logo przeźroczyste.png" alt="DAGAS Logo" class="hero-logo-image">
+                            <div class="logo-glow"></div>
+                        </div>
+                        <div class="hero-features">
+                            <div class="feature-item">
+                                <div class="feature-icon">🚛</div>
+                                <span>Transport paliwa</span>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏗️</div>
+                                <span>Materiały sypkie</span>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">⚡</div>
+                                <span>Usługi spawalnicze</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -126,6 +158,28 @@
                             <li>Diagnostyka komputerowa</li>
                         </ul>
                     </div>
+                    <div class="service-card">
+                        <div class="service-icon">🚜</div>
+                        <h3>Transport Materiałów Sypkich</h3>
+                        <p>Profesjonalny transport ziemi, kamieni, piasku i innych materiałów sypkich samochodami z wannami (skrzyniami ładunkowymi).</p>
+                        <ul>
+                            <li>Transport ziemi i kamieni</li>
+                            <li>Przewóz piasku i żwiru</li>
+                            <li>Samochody z wannami różnej pojemności</li>
+                            <li>Usługi dla budownictwa i ogrodnictwa</li>
+                        </ul>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">⚡</div>
+                        <h3>Usługi Spawalnicze</h3>
+                        <p>Profesjonalne usługi spawalnicze wykonywane przez certyfikowanych spawaczy z wykorzystaniem nowoczesnego sprzętu.</p>
+                        <ul>
+                            <li>Spawanie konstrukcji stalowych</li>
+                            <li>Naprawa elementów metalowych</li>
+                            <li>Spawanie aluminium i stali nierdzewnej</li>
+                            <li>Prace spawalnicze w terenie</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
@@ -135,7 +189,7 @@
                 <div class="about-content">
                     <div class="about-text">
                         <h2>O Firmie DAGAS</h2>
-                        <p>Firma DAGAS to rodzinne przedsiębiorstwo z wieloletnim doświadczeniem w branży transportowej i logistycznej. Działamy w Sosnowcu, oferując kompleksowe usługi związane z transportem paliwa oraz szeroki zakres usług dodatkowych.</p>
+                        <p>Firma DAGAS to rodzinne przedsiębiorstwo z wieloletnim doświadczeniem w branży transportowej i logistycznej. Działamy w Sosnowcu, oferując kompleksowe usługi związane z transportem paliwa, materiałów sypkich, usługi spawalnicze oraz szeroki zakres usług dodatkowych.</p>
                         
                         <div class="features">
                             <div class="feature">
@@ -157,22 +211,8 @@
                         </div>
                     </div>
                     <div class="about-image">
-                        <div class="image-placeholder">
-                            <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                                <rect width="300" height="200" fill="#f0f0f0" stroke="#ddd"/>
-                                <!-- Cysterny -->
-                                <ellipse cx="150" cy="100" rx="80" ry="25" fill="#FCD34D" stroke="#1E40AF" stroke-width="2"/>
-                                <!-- Kabina -->
-                                <rect x="40" y="75" width="35" height="30" rx="5" fill="#1E40AF"/>
-                                <!-- Koła -->
-                                <circle cx="60" cy="130" r="12" fill="#374151"/>
-                                <circle cx="120" cy="130" r="12" fill="#374151"/>
-                                <circle cx="180" cy="130" r="12" fill="#374151"/>
-                                <circle cx="220" cy="130" r="12" fill="#374151"/>
-                                <!-- Detale -->
-                                <circle cx="150" cy="100" r="10" fill="#1E40AF"/>
-                                <text x="150" y="108" text-anchor="middle" fill="#1E40AF" font-weight="bold" font-size="16">DAGAS</text>
-                            </svg>
+                        <div class="about-logo-container">
+                            <img src="galeria/logo niebieskie.png" alt="DAGAS Logo" class="about-logo-image">
                         </div>
                     </div>
                 </div>
@@ -186,10 +226,11 @@
                     <div class="location-info">
                         <h3>Znajdziesz nas w Sosnowcu</h3>
                         <p>Nasza firma znajduje się przy ulicy Kukułek 41 w Sosnowcu, w strategicznym punkcie zapewniającym łatwy dostęp do głównych tras komunikacyjnych regionu śląskiego.</p>
-                        <div class="coordinates">
-                            <strong>Współrzędne GPS:</strong><br>
-                            Szerokość: 50.28196061508645<br>
-                            Długość: 19.16098499012522
+                        <div class="company-address">
+                            <strong>Adres firmy:</strong><br>
+                            ul. Kukułek 41<br>
+                            41-200 Sosnowiec<br>
+                            woj. śląskie
                         </div>
                         <div class="location-features">
                             <div class="location-feature">
@@ -220,33 +261,31 @@
                     <div class="contact-info">
                         <h3>Informacje kontaktowe</h3>
                         <div class="contact-item">
-                            <span class="icon">📧</span>
+                            <span class="icon">�</span>
                             <div>
-                                <strong>Email:</strong><br>
-                                kontakt@dagas.pl
+                                <strong>+48 123 456 789</strong><br>
+                                <span class="contact-description">Główny numer kontaktowy</span>
                             </div>
                         </div>
                         <div class="contact-item">
-                            <span class="icon">📞</span>
+                            <span class="icon">�</span>
                             <div>
-                                <strong>Telefon:</strong><br>
-                                +48 123 456 789
+                                <strong>kontakt@dagas.pl</strong><br>
+                                <span class="contact-description">Adres email</span>
                             </div>
                         </div>
                         <div class="contact-item">
                             <span class="icon">📍</span>
                             <div>
-                                <strong>Adres:</strong><br>
-                                ul. Kukułek 41<br>
-                                Sosnowiec, woj. śląskie
+                                <strong>ul. Kukułek 41</strong><br>
+                                <span class="contact-description">Sosnowiec, woj. śląskie</span>
                             </div>
                         </div>
                         <div class="contact-item">
                             <span class="icon">🕒</span>
                             <div>
-                                <strong>Godziny pracy:</strong><br>
-                                Pon-Pt: 7:00 - 18:00<br>
-                                Sob: 8:00 - 14:00
+                                <strong>Pon-Pt: 7:00 - 18:00</strong><br>
+                                <span class="contact-description">Sob: 8:00 - 14:00 | Godziny pracy</span>
                             </div>
                         </div>
                     </div>
@@ -269,6 +308,8 @@
                                     <option value="parking">Parking dla TIR-ów</option>
                                     <option value="wynajem">Wynajem przestrzeni</option>
                                     <option value="naprawa">Naprawa pojazdów</option>
+                                    <option value="materialy">Transport materiałów sypkich</option>
+                                    <option value="spawanie">Usługi spawalnicze</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -287,24 +328,10 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <svg width="40" height="40" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Główna cysterny -->
-                            <ellipse cx="25" cy="28" rx="18" ry="12" fill="#FCD34D" stroke="white" stroke-width="2"/>
-                            <!-- Kabina -->
-                            <rect x="5" y="20" width="12" height="16" rx="3" fill="white"/>
-                            <!-- Koła -->
-                            <circle cx="12" cy="38" r="4" fill="#374151"/>
-                            <circle cx="25" cy="38" r="4" fill="#374151"/>
-                            <circle cx="38" cy="38" r="4" fill="#374151"/>
-                            <!-- Detale cysterny -->
-                            <circle cx="25" cy="28" r="3" fill="white"/>
-                            <rect x="20" y="26" width="10" height="4" rx="2" fill="white"/>
-                            <!-- Napis DAGAS -->
-                            <text x="25" y="30" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="6">DAGAS</text>
-                        </svg>
+                        <img src="galeria/logo białe.png" alt="DAGAS Logo" class="footer-logo-image">
                         <span>DAGAS</span>
                     </div>
-                    <p>Profesjonalny transport paliwa i usługi logistyczne w Sosnowcu</p>
+                    <p>Profesjonalny transport paliwa, materiałów sypkich, usługi spawalnicze i kompleksowe rozwiązania logistyczne w Sosnowcu</p>
                 </div>
                 <div class="footer-section">
                     <h4>Usługi</h4>
@@ -313,13 +340,15 @@
                         <li>Parking dla TIR-ów</li>
                         <li>Wynajem przestrzeni</li>
                         <li>Naprawa pojazdów</li>
+                        <li>Transport materiałów sypkich</li>
+                        <li>Usługi spawalnicze</li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Kontakt</h4>
                     <ul>
+                        <li><strong>+48 123 456 789</strong></li>
                         <li>kontakt@dagas.pl</li>
-                        <li>+48 123 456 789</li>
                         <li>ul. Kukułek 41, Sosnowiec</li>
                     </ul>
                 </div>
