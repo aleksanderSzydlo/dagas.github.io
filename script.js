@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Animacje przy przewijaniu
     initScrollAnimations();
+    
+    // Optymalizacja obrazów tła
+    initBackgroundOptimization();
+    
+    // Parallax effects
+    initParallaxEffects();
 });
 
 // Inicjalizacja mapy Leaflet
@@ -290,6 +296,70 @@ window.addEventListener('scroll', function() {
         }
     });
 });
+
+// Optymalizacja obrazów tła dla lepszej wydajności
+function initBackgroundOptimization() {
+    // Preload background images for better performance
+    const backgroundImages = [
+        'zdjecia/zdjecie1.jpg',
+        'zdjecia/zdjecie2.jpg',
+        'zdjecia/zdjecie3.jpg',
+        'zdjecia/zdjecie4.jpg',
+        'zdjecia/zdjecie5.jpg',
+        'zdjecia/zdjecie6.jpg'
+    ];
+    
+    backgroundImages.forEach(imageSrc => {
+        const img = new Image();
+        img.src = imageSrc;
+    });
+    
+    // Optimize background images loading
+    const sections = document.querySelectorAll('section, .hero, .footer');
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('loaded');
+            }
+        });
+    }, { rootMargin: '50px' });
+    
+    sections.forEach(section => {
+        imageObserver.observe(section);
+    });
+}
+
+// Efekty parallax (tylko na desktop)
+function initParallaxEffects() {
+    if (window.innerWidth <= 768) return; // Skip on mobile for performance
+    
+    const parallaxElements = document.querySelectorAll('.services, .about, .location, .contact');
+    
+    function updateParallax() {
+        const scrollTop = window.pageYOffset;
+        
+        parallaxElements.forEach(element => {
+            const rect = element.getBoundingClientRect();
+            const speed = 0.5; // Parallax speed
+            
+            if (rect.bottom >= 0 && rect.top <= window.innerHeight) {
+                const yPos = -(scrollTop * speed);
+                element.style.backgroundPosition = `center ${yPos}px`;
+            }
+        });
+    }
+    
+    let ticking = false;
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+            setTimeout(() => { ticking = false; }, 10);
+        }
+    }
+    
+    window.addEventListener('scroll', requestTick);
+}
 
 // Dodatkowe style CSS dla aktywnej nawigacji i powiadomień
 const additionalStyles = `

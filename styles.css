@@ -160,7 +160,9 @@ body {
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    background: 
+        linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.9) 50%, rgba(51, 65, 85, 0.85) 100%),
+        url('../zdjecia/zdjecie1.jpg') center/cover no-repeat;
 }
 
 .hero-background {
@@ -440,7 +442,10 @@ body {
 /* Services Section */
 .services {
     padding: 120px 0;
-    background: white;
+    background: 
+        linear-gradient(rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95)),
+        url('../zdjecia/zdjecie2.jpg') center/cover no-repeat;
+    background-attachment: fixed;
 }
 
 .services h2 {
@@ -458,18 +463,20 @@ body {
 }
 
 .service-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
     padding: 50px 40px;
     border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
     text-align: center;
     transition: all 0.3s ease;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
 }
 
 .service-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    background: rgba(255, 255, 255, 0.98);
 }
 
 .service-icon {
@@ -512,7 +519,10 @@ body {
 /* About Section */
 .about {
     padding: 100px 0;
-    background: #f8fafc;
+    background: 
+        linear-gradient(rgba(248, 250, 252, 0.92), rgba(241, 245, 249, 0.92)),
+        url('../zdjecia/zdjecie3.jpg') center/cover no-repeat;
+    background-attachment: fixed;
 }
 
 .about-content {
@@ -542,10 +552,12 @@ body {
 }
 
 .feature {
-    background: white;
+    background: rgba(255, 255, 255, 0.9);
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.5);
 }
 
 .feature h4 {
@@ -564,10 +576,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
     padding: 40px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.8);
 }
 
 .about-logo-image {
@@ -580,7 +594,10 @@ body {
 /* Location Section */
 .location {
     padding: 100px 0;
-    background: white;
+    background: 
+        linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.93)),
+        url('../zdjecia/zdjecie4.jpg') center/cover no-repeat;
+    background-attachment: fixed;
 }
 
 .location h2 {
@@ -631,9 +648,11 @@ body {
     align-items: center;
     gap: 15px;
     padding: 15px;
-    background: white;
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.6);
 }
 
 .location-feature .icon {
@@ -655,7 +674,10 @@ body {
 /* Contact Section */
 .contact {
     padding: 100px 0;
-    background: #f8fafc;
+    background: 
+        linear-gradient(rgba(248, 250, 252, 0.92), rgba(241, 245, 249, 0.95)),
+        url('../zdjecia/zdjecie5.jpg') center/cover no-repeat;
+    background-attachment: fixed;
 }
 
 .contact h2 {
@@ -683,9 +705,11 @@ body {
     gap: 15px;
     margin-bottom: 25px;
     padding: 20px;
-    background: white;
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.6);
 }
 
 .contact-item .icon {
@@ -700,10 +724,12 @@ body {
 }
 
 .contact-form {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
     padding: 40px;
     border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.8);
 }
 
 .contact-form h3 {
@@ -740,7 +766,9 @@ body {
 
 /* Footer */
 .footer {
-    background: #1E40AF;
+    background: 
+        linear-gradient(rgba(30, 64, 175, 0.95), rgba(30, 64, 175, 0.98)),
+        url('../zdjecia/zdjecie6.jpg') center/cover no-repeat;
     color: white;
     padding: 60px 0 20px;
 }
@@ -789,8 +817,115 @@ body {
     color: #ccc;
 }
 
+/* Smooth scroll animations */
+.section-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.section-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Enhanced glassmorphism effects for cards */
+.glass-card {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Additional background overlay effects */
+.section-overlay {
+    position: relative;
+}
+
+.section-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+        rgba(30, 64, 175, 0.05) 0%, 
+        rgba(252, 211, 77, 0.05) 50%, 
+        rgba(239, 68, 68, 0.05) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.section-overlay > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Loading states for background images */
+.hero, .services, .about, .location, .contact, .footer {
+    background-blend-mode: overlay;
+    transition: background-position 0.1s ease-out;
+}
+
+.hero.loaded, .services.loaded, .about.loaded, 
+.location.loaded, .contact.loaded, .footer.loaded {
+    opacity: 1;
+}
+
+/* Performance optimizations */
+.hero, .services, .about, .location, .contact, .footer {
+    will-change: background-position;
+    transform: translateZ(0); /* Hardware acceleration */
+}
+
+/* Enhanced mobile styles */
+@media (max-width: 768px) {
+    .hero, .services, .about, .location, .contact, .footer {
+        background-attachment: scroll !important;
+        will-change: auto;
+        transform: none;
+    }
+    
+    .hero {
+        background-size: cover;
+        background-position: center 30%;
+    }
+    
+    .services {
+        background-position: center 20%;
+    }
+    
+    .about {
+        background-position: center 60%;
+    }
+    
+    .location {
+        background-position: center 40%;
+    }
+    
+    .contact {
+        background-position: center 50%;
+    }
+    
+    .footer {
+        background-position: center 70%;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* Wyłączenie parallax na mobile dla lepszej wydajności */
+    .services,
+    .about,
+    .location,
+    .contact {
+        background-attachment: scroll;
+    }
+    
     .hamburger {
         display: flex;
     }
