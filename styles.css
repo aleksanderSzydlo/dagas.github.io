@@ -162,7 +162,7 @@ body {
     overflow: hidden;
     background: 
         linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.9) 50%, rgba(51, 65, 85, 0.85) 100%),
-        url('../zdjecia/zdjecie1.jpg') center/cover no-repeat;
+        url('zdjecia/zdjecie1.jpg') center/cover no-repeat;
 }
 
 .hero-background {
@@ -444,7 +444,7 @@ body {
     padding: 120px 0;
     background: 
         linear-gradient(rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95)),
-        url('../zdjecia/zdjecie2.jpg') center/cover no-repeat;
+        url('zdjecia/zdjecie2.jpg') center/cover no-repeat;
     background-attachment: fixed;
 }
 
@@ -521,7 +521,7 @@ body {
     padding: 100px 0;
     background: 
         linear-gradient(rgba(248, 250, 252, 0.92), rgba(241, 245, 249, 0.92)),
-        url('../zdjecia/zdjecie3.jpg') center/cover no-repeat;
+        url('zdjecia/zdjecie3.jpg') center/cover no-repeat;
     background-attachment: fixed;
 }
 
@@ -596,7 +596,7 @@ body {
     padding: 100px 0;
     background: 
         linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.93)),
-        url('../zdjecia/zdjecie4.jpg') center/cover no-repeat;
+        url('zdjecia/zdjecie4.jpg') center/cover no-repeat;
     background-attachment: fixed;
 }
 
@@ -676,7 +676,7 @@ body {
     padding: 100px 0;
     background: 
         linear-gradient(rgba(248, 250, 252, 0.92), rgba(241, 245, 249, 0.95)),
-        url('../zdjecia/zdjecie5.jpg') center/cover no-repeat;
+        url('zdjecia/zdjecie5.jpg') center/cover no-repeat;
     background-attachment: fixed;
 }
 
@@ -768,7 +768,7 @@ body {
 .footer {
     background: 
         linear-gradient(rgba(30, 64, 175, 0.95), rgba(30, 64, 175, 0.98)),
-        url('../zdjecia/zdjecie6.jpg') center/cover no-repeat;
+        url('zdjecia/zdjecie6.jpg') center/cover no-repeat;
     color: white;
     padding: 60px 0 20px;
 }
