@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Inicjalizacja EmailJS
         initEmailJS();
         
-        // Inicjalizacja mapy
-        initMap();
+        // Inicjalizacja mapy (z opóźnieniem dla Google Maps API)
+        initMapWhenReady();
         
         // Nawigacja mobilna
         initMobileNavigation();
@@ -92,69 +92,105 @@ function testEmailJSConnection() {
     };
 }
 
-// Inicjalizacja mapy Leaflet
+// Funkcja sprawdzająca gotowość Google Maps API
+function initMapWhenReady() {
+    // Sprawdź czy Google Maps API jest załadowany
+    function checkGoogleMapsAPI() {
+        if (typeof google !== 'undefined' && google.maps) {
+            initMap();
+        } else {
+            // Spróbuj ponownie po 100ms
+            setTimeout(checkGoogleMapsAPI, 100);
+        }
+    }
+    
+    checkGoogleMapsAPI();
+}
+
+// Inicjalizacja mapy Google Maps
 function initMap() {
     // Współrzędne firmy Dagas w Sosnowcu
-    const lat = 50.28196061508645;
-    const lng = 19.16098499012522;
+    const position = { lat: 50.28196061508645, lng: 19.16098499012522 };
     
     // Tworzenie mapy
-    const map = L.map('map').setView([lat, lng], 15);
-    
-    // Dodanie warstwy OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    
-    // Niestandardowa ikona dla markera
-    const customIcon = L.divIcon({
-        html: `
-            <div style="
-                background: #FCD34D;
-                width: 30px;
-                height: 30px;
-                border-radius: 50% 50% 50% 0;
-                border: 3px solid #1E40AF;
-                transform: rotate(-45deg);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            ">
-                <div style="
-                    color: #1E40AF;
-                    font-weight: bold;
-                    font-size: 12px;
-                    transform: rotate(45deg);
-                ">D</div>
-            </div>
-        `,
-        className: 'custom-marker',
-        iconSize: [30, 30],
-        iconAnchor: [15, 30]
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 15,
+        center: position,
+        mapTypeControl: true,
+        streetViewControl: true,
+        fullscreenControl: true,
+        zoomControl: true,
+        styles: [
+            {
+                featureType: "poi.business",
+                stylers: [{ visibility: "on" }]
+            },
+            {
+                featureType: "transit",
+                elementType: "labels.icon",
+                stylers: [{ visibility: "off" }]
+            }
+        ]
     });
     
-    // Dodanie markera
-    const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+    // Niestandardowa ikona dla markera
+    const customMarkerIcon = {
+        url: 'data:image/svg+xml,' + encodeURIComponent(`
+            <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="18" fill="#FCD34D" stroke="#1E40AF" stroke-width="3"/>
+                <text x="20" y="26" font-family="Arial, sans-serif" font-size="16" font-weight="bold" 
+                      fill="#1E40AF" text-anchor="middle">D</text>
+            </svg>
+        `),
+        scaledSize: new google.maps.Size(40, 40),
+        anchor: new google.maps.Point(20, 20)
+    };
     
-    // Popup z informacjami
-    marker.bindPopup(`
-        <div style="text-align: center; padding: 10px;">
-            <strong style="color: #1E40AF; font-size: 16px;">DAGAS</strong><br>
-            <span style="color: #666;">Transport paliwa i usługi logistyczne</span><br>
-            <span style="color: #F59E0B; font-weight: bold;">ul. Kukułek 41, Sosnowiec</span><br>
-            <small style="color: #888;">
-                ${lat.toFixed(6)}, ${lng.toFixed(6)}
-            </small>
-        </div>
-    `).openPopup();
+    // Dodanie markera
+    const marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        icon: customMarkerIcon,
+        title: "DAGAS - Transport paliwa i usługi logistyczne",
+        animation: google.maps.Animation.DROP
+    });
+    
+    // InfoWindow z informacjami
+    const infoWindow = new google.maps.InfoWindow({
+        content: `
+            <div style="text-align: center; padding: 10px; font-family: Arial, sans-serif;">
+                <strong style="color: #1E40AF; font-size: 18px;">DAGAS</strong><br>
+                <span style="color: #666; font-size: 14px;">Transport paliwa i usługi logistyczne</span><br>
+                <span style="color: #F59E0B; font-weight: bold; font-size: 14px;">ul. Kukułek 41, Sosnowiec</span><br>
+                <div style="margin-top: 8px;">
+                    <small style="color: #888; font-size: 12px;">
+                        📞 +48 123 456 789<br>
+                        📧 kontakt@dagas.pl
+                    </small>
+                </div>
+            </div>
+        `
+    });
+    
+    // Otwórz InfoWindow automatycznie
+    infoWindow.open(map, marker);
+    
+    // Event listener dla markera
+    marker.addListener("click", () => {
+        infoWindow.open(map, marker);
+    });
     
     // Dodanie okręgu pokazującego obszar działania
-    L.circle([lat, lng], {
-        color: '#F59E0B',
-        fillColor: '#F59E0B',
+    const serviceArea = new google.maps.Circle({
+        strokeColor: "#F59E0B",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#F59E0B",
         fillOpacity: 0.1,
-        radius: 2000
-    }).addTo(map);
+        map: map,
+        center: position,
+        radius: 2000, // 2km radius
+    });
 }
 
 // Nawigacja mobilna

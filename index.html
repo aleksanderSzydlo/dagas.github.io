@@ -13,7 +13,7 @@
     <meta name="robots" content="index, follow">
     
     <!-- Bezpieczeństwo -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://api.emailjs.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://maps.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://maps.googleapis.com https://maps.gstatic.com; connect-src 'self' https://api.emailjs.com https://maps.googleapis.com;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
@@ -48,8 +48,6 @@
     <link rel="preload" href="logo/logo przeźroczyste.png" as="image" type="image/png">
     <link rel="preload" href="zdjecia/zdjecie1.jpg" as="image" type="image/jpeg">
     <link rel="prefetch" href="zdjecia/zdjecie3.jpg" as="image" type="image/jpeg">
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
     <!-- EmailJS - najnowsza wersja -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" async></script>
@@ -451,7 +449,7 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDummy_Key_Replace_With_Real&libraries=geometry"></script>
     <script src="script.js"></script>
 </body>
 </html>
