@@ -1,25 +1,39 @@
 // Inicjalizacja po załadowaniu strony
 document.addEventListener('DOMContentLoaded', function() {
-    // Inicjalizacja EmailJS
-    initEmailJS();
-    
-    // Inicjalizacja mapy
-    initMap();
-    
-    // Nawigacja mobilna
-    initMobileNavigation();
-    
-    // Płynne przewijanie
-    initSmoothScrolling();
-    
-    // Formularz kontaktowy
-    initContactForm();
-    
-    // Animacje przy przewijaniu
-    initScrollAnimations();
-    
-    // Optymalizacja obrazów tła
-    initBackgroundOptimization();
+    try {
+        // Inicjalizacja EmailJS
+        initEmailJS();
+        
+        // Inicjalizacja mapy
+        initMap();
+        
+        // Nawigacja mobilna
+        initMobileNavigation();
+        
+        // Płynne przewijanie
+        initSmoothScrolling();
+        
+        // Formularz kontaktowy
+        initContactForm();
+        
+        // Animacje przy przewijaniu
+        initScrollAnimations();
+        
+        // Optymalizacja obrazów tła
+        initBackgroundOptimization();
+        
+        // Performance monitoring
+        initPerformanceMonitoring();
+        
+        // Service Worker registration
+        initServiceWorker();
+        
+        console.log('✅ Aplikacja DAGAS załadowana pomyślnie');
+        
+    } catch (error) {
+        console.error('❌ Błąd podczas inicjalizacji aplikacji:', error);
+        showToast('Wystąpił błąd podczas ładowania strony. Odśwież stronę.', 'error');
+    }
     
     // Parallax effects wyłączone - tła są teraz przypięte do sekcji
     // initParallaxEffects();
@@ -149,10 +163,33 @@ function initMobileNavigation() {
     const navMenu = document.querySelector('.nav-menu');
     
     if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
+        // Click handler
+        hamburger.addEventListener('click', toggleMenu);
+        
+        // Keyboard handler for hamburger
+        hamburger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleMenu();
+            }
+        });
+        
+        function toggleMenu() {
+            const isExpanded = navMenu.classList.contains('active');
             navMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
-        });
+            
+            // Update ARIA attributes
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+            
+            // Focus management
+            if (!isExpanded) {
+                const firstLink = navMenu.querySelector('a');
+                if (firstLink) {
+                    firstLink.focus();
+                }
+            }
+        }
         
         // Zamknij menu po kliknięciu w link
         const navLinks = document.querySelectorAll('.nav-menu a');
@@ -160,7 +197,18 @@ function initMobileNavigation() {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
                 hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
             });
+        });
+        
+        // Zamknij menu przy naciśnięciu Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                hamburger.focus();
+            }
         });
     }
 }
@@ -318,17 +366,33 @@ function showToast(message, type = 'info') {
     // Utwórz toast notification
     const toast = document.createElement('div');
     toast.className = 'toast-notification';
-    toast.innerHTML = `
-        <div class="toast-content">
-            <div class="toast-message">${message}</div>
-            <button class="toast-close" onclick="this.parentElement.parentElement.remove()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-        </div>
+    
+    // Bezpieczne tworzenie elementów DOM
+    const toastContent = document.createElement('div');
+    toastContent.className = 'toast-content';
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'toast-message';
+    messageDiv.textContent = message; // Bezpieczne ustawienie tekstu
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'toast-close';
+    closeBtn.setAttribute('aria-label', 'Zamknij powiadomienie');
+    closeBtn.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
     `;
+    
+    toastContent.appendChild(messageDiv);
+    toastContent.appendChild(closeBtn);
+    toast.appendChild(toastContent);
+    
+    // ARIA attributes dla accessibility
+    toast.setAttribute('role', type === 'error' ? 'alert' : 'status');
+    toast.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+    toast.setAttribute('aria-atomic', 'true');
     
     // Style dla toast notification
     const styles = {
@@ -399,6 +463,20 @@ function showToast(message, type = 'info') {
         closeButton.style.transform = 'scale(1)';
     });
     
+    // Funkcja zamykania toast
+    const closeToast = () => {
+        toast.style.transform = 'translateY(100px) scale(0.8)';
+        toast.style.opacity = '0';
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.remove();
+            }
+        }, 400);
+    };
+    
+    // Event listener dla przycisku zamknięcia
+    closeButton.addEventListener('click', closeToast);
+    
     // Dodaj toast do strony
     document.body.appendChild(toast);
     
@@ -410,25 +488,8 @@ function showToast(message, type = 'info') {
     
     // Animacja znikania po 5 sekundach
     setTimeout(() => {
-        toast.style.transform = 'translateY(100px) scale(0.8)';
-        toast.style.opacity = '0';
-        setTimeout(() => {
-            if (toast.parentNode) {
-                toast.remove();
-            }
-        }, 400);
+        closeToast();
     }, 5000);
-    
-    // Dodaj efekt kliknięcia dla zamknięcia
-    closeButton.addEventListener('click', () => {
-        toast.style.transform = 'translateY(100px) scale(0.8)';
-        toast.style.opacity = '0';
-        setTimeout(() => {
-            if (toast.parentNode) {
-                toast.remove();
-            }
-        }, 400);
-    });
 }
 
 // Walidacja emaila
@@ -572,7 +633,63 @@ function initParallaxEffects() {
     window.addEventListener('scroll', requestTick);
 }
 
-// Dodatkowe style CSS dla aktywnej nawigacji i powiadomień
+// Performance monitoring
+function initPerformanceMonitoring() {
+    // Measurement of Core Web Vitals
+    if ('performance' in window) {
+        // Largest Contentful Paint
+        new PerformanceObserver((entryList) => {
+            for (const entry of entryList.getEntries()) {
+                console.log('🚀 LCP:', entry.startTime);
+                if (entry.startTime > 2500) {
+                    console.warn('⚠️ LCP zbyt wolne:', entry.startTime + 'ms');
+                }
+            }
+        }).observe({entryTypes: ['largest-contentful-paint']});
+        
+        // First Input Delay
+        new PerformanceObserver((entryList) => {
+            for (const entry of entryList.getEntries()) {
+                console.log('⚡ FID:', entry.processingStart - entry.startTime);
+                if (entry.processingStart - entry.startTime > 100) {
+                    console.warn('⚠️ FID zbyt wolne:', (entry.processingStart - entry.startTime) + 'ms');
+                }
+            }
+        }).observe({entryTypes: ['first-input']});
+        
+        // Cumulative Layout Shift
+        let clsValue = 0;
+        let clsEntries = [];
+        new PerformanceObserver((entryList) => {
+            for (const entry of entryList.getEntries()) {
+                if (!entry.hadRecentInput) {
+                    const firstSessionEntry = clsEntries[0];
+                    const lastSessionEntry = clsEntries[clsEntries.length - 1];
+                    if (clsEntries.length === 0 || entry.startTime - lastSessionEntry.startTime < 1000 && entry.startTime - firstSessionEntry.startTime < 5000) {
+                        clsEntries.push(entry);
+                        clsValue += entry.value;
+                    } else {
+                        clsEntries = [entry];
+                        clsValue = entry.value;
+                    }
+                    console.log('📏 CLS:', clsValue);
+                    if (clsValue > 0.1) {
+                        console.warn('⚠️ CLS zbyt wysokie:', clsValue);
+                    }
+                }
+            }
+        }).observe({entryTypes: ['layout-shift']});
+    }
+    
+    // Monitor page load time
+    window.addEventListener('load', () => {
+        const loadTime = performance.now();
+        console.log('⏱️ Czas ładowania strony:', loadTime + 'ms');
+        if (loadTime > 3000) {
+            console.warn('⚠️ Strona ładuje się zbyt wolno');
+        }
+    });
+}
 const additionalStyles = `
     .nav-menu a.active {
         color: #FF6B35 !important;
@@ -617,6 +734,34 @@ const additionalStyles = `
         }
     }
 `;
+
+// Service Worker registration
+function initServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then((registration) => {
+                    console.log('✅ Service Worker zarejestrowany:', registration.scope);
+                    
+                    // Check for updates
+                    registration.addEventListener('updatefound', () => {
+                        console.log('🔄 Dostępna nowa wersja aplikacji');
+                        const newWorker = registration.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                showToast('Dostępna jest nowa wersja strony. Odśwież aby zaktualizować.', 'info');
+                            }
+                        });
+                    });
+                })
+                .catch((error) => {
+                    console.log('❌ Błąd rejestracji Service Worker:', error);
+                });
+        });
+    } else {
+        console.log('ℹ️ Service Worker nie jest obsługiwany');
+    }
+}
 
 // Dodaj dodatkowe style do dokumentu
 const styleSheet = document.createElement('style');

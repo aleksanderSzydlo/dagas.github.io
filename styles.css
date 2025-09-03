@@ -12,6 +12,68 @@ body {
     background-color: #fafafa;
 }
 
+/* Accessibility - Skip Link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #1E40AF;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 10001;
+    border-radius: 0 0 8px 8px;
+    font-weight: 600;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Focus styles for better accessibility */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+[tabindex]:focus {
+    outline: 3px solid #F59E0B;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                    url('zdjecia/zdjecie1.jpg') center/cover no-repeat;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .hero-logo-image {
+        animation: none !important;
+    }
+    
+    .logo-glow {
+        animation: none !important;
+    }
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
