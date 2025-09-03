@@ -752,8 +752,18 @@ function initServiceWorker() {
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/sw.js')
-                .then((registration) => {
+                .then(async (registration) => {
                     console.log('✅ Service Worker zarejestrowany:', registration.scope);
+                    
+                    // Enable navigation preload if available
+                    if (registration.navigationPreload) {
+                        try {
+                            await registration.navigationPreload.enable();
+                            console.log('✅ Navigation preload włączony');
+                        } catch (error) {
+                            console.log('ℹ️ Navigation preload niedostępny:', error);
+                        }
+                    }
                     
                     // Check for updates
                     registration.addEventListener('updatefound', () => {
