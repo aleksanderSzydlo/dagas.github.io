@@ -108,6 +108,19 @@ textarea:focus,
     font-weight: 700;
     font-size: 1.5em;
     text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.logo:hover {
+    color: #FCD34D;
+    transform: translateY(-1px);
+}
+
+.logo:focus {
+    outline: 3px solid #F59E0B;
+    outline-offset: 2px;
+    border-radius: 8px;
 }
 
 .logo-image {
@@ -115,10 +128,20 @@ textarea:focus,
     width: auto;
     max-width: 60px;
     object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-image {
+    transform: scale(1.05);
 }
 
 .logo-text {
     letter-spacing: 2px;
+    transition: letter-spacing 0.3s ease;
+}
+
+.logo:hover .logo-text {
+    letter-spacing: 3px;
 }
 
 .nav-menu li a {
