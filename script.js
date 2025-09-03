@@ -1,5 +1,8 @@
 // Inicjalizacja po załadowaniu strony
 document.addEventListener('DOMContentLoaded', function() {
+    // Inicjalizacja EmailJS
+    initEmailJS();
+    
     // Inicjalizacja mapy
     initMap();
     
@@ -18,9 +21,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Optymalizacja obrazów tła
     initBackgroundOptimization();
     
-    // Parallax effects
-    initParallaxEffects();
+    // Parallax effects wyłączone - tła są teraz przypięte do sekcji
+    // initParallaxEffects();
 });
+
+// Inicjalizacja EmailJS
+function initEmailJS() {
+    // Inicjalizacja EmailJS z public key
+    emailjs.init('3qSdcdYGB_F2FxHQv');
+}
 
 // Inicjalizacja mapy Leaflet
 function initMap() {
@@ -135,117 +144,198 @@ function initSmoothScrolling() {
 
 // Obsługa formularza kontaktowego
 function initContactForm() {
-    const contactForm = document.querySelector('.contact-form form');
+    const contactForm = document.getElementById('contact-form');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Pobierz elementy formularza
+            const submitButton = this.querySelector('button[type="submit"]');
+            const btnText = document.getElementById('btn-text');
+            const btnLoading = document.getElementById('btn-loading');
+            
             // Zbieranie danych z formularza
-            const formData = new FormData(this);
-            const data = {
-                name: this.querySelector('input[type="text"]').value,
-                email: this.querySelector('input[type="email"]').value,
-                phone: this.querySelector('input[type="tel"]').value,
-                service: this.querySelector('select').value,
-                message: this.querySelector('textarea').value
+            const formData = {
+                from_name: this.querySelector('input[name="from_name"]').value,
+                from_email: this.querySelector('input[name="from_email"]').value,
+                message: this.querySelector('textarea[name="message"]').value,
+                subject: 'Wiadomość ze strony',
+                reply_to: this.querySelector('input[name="from_email"]').value,
+                phone: this.querySelector('input[name="phone"]').value,
+                service: this.querySelector('select[name="service"]').value,
+                web: 'Dagas'
             };
             
             // Walidacja
-            if (!data.name || !data.email || !data.message) {
-                showNotification('Proszę wypełnić wszystkie wymagane pola', 'error');
+            if (!formData.from_name || !formData.from_email || !formData.message) {
+                showToast('Proszę wypełnić wszystkie wymagane pola', 'error');
                 return;
             }
             
-            if (!isValidEmail(data.email)) {
-                showNotification('Proszę podać prawidłowy adres email', 'error');
+            if (!isValidEmail(formData.from_email)) {
+                showToast('Proszę podać prawidłowy adres email', 'error');
                 return;
             }
             
-            // Symulacja wysyłania (w rzeczywistości potrzebny backend)
-            showNotification('Wiadomość została wysłana! Skontaktujemy się z Państwem wkrótce.', 'success');
-            this.reset();
+            // Wyłącz przycisk i pokaż loading
+            submitButton.disabled = true;
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline';
+            
+            // Wyślij email przez EmailJS
+            emailjs.send('service_wvhublc', 'template_ypn9c6y', formData)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    showToast('✅ Wiadomość została wysłana pomyślnie! Skontaktujemy się z Państwem wkrótce.', 'success');
+                    contactForm.reset();
+                })
+                .catch(function(error) {
+                    console.log('FAILED...', error);
+                    showToast('❌ Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie lub skontaktuj się telefonicznie.', 'error');
+                })
+                .finally(function() {
+                    // Przywróć przycisk
+                    submitButton.disabled = false;
+                    btnText.style.display = 'inline';
+                    btnLoading.style.display = 'none';
+                });
         });
     }
+}
+
+// System toast notifications - eleganckie dymki pojawiające się pod formularzem
+function showToast(message, type = 'info') {
+    // Usuń istniejące toasty
+    const existingToast = document.querySelector('.toast-notification');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    // Znajdź formularz kontaktowy jako punkt odniesienia
+    const contactForm = document.getElementById('contact-form');
+    if (!contactForm) return;
+    
+    // Utwórz toast notification
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = `
+        <div class="toast-content">
+            <div class="toast-message">${message}</div>
+            <button class="toast-close" onclick="this.parentElement.parentElement.remove()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    `;
+    
+    // Style dla toast notification
+    const styles = {
+        position: 'fixed',
+        bottom: '30px',
+        right: '30px',
+        maxWidth: '400px',
+        minWidth: '300px',
+        padding: '0',
+        borderRadius: '12px',
+        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.1)',
+        zIndex: '10000',
+        transform: 'translateY(100px) scale(0.8)',
+        opacity: '0',
+        transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+        background: type === 'success' ? 'linear-gradient(135deg, #10B981, #059669)' : 
+                   type === 'error' ? 'linear-gradient(135deg, #EF4444, #DC2626)' : 
+                   'linear-gradient(135deg, #3B82F6, #2563EB)',
+        border: 'none',
+        overflow: 'hidden'
+    };
+    
+    Object.assign(toast.style, styles);
+    
+    // Style dla zawartości
+    const content = toast.querySelector('.toast-content');
+    content.style.cssText = `
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 20px;
+        color: white;
+        gap: 15px;
+    `;
+    
+    const messageElement = toast.querySelector('.toast-message');
+    messageElement.style.cssText = `
+        flex: 1;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.4;
+    `;
+    
+    const closeButton = toast.querySelector('.toast-close');
+    closeButton.style.cssText = `
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    `;
+    
+    // Hover effect dla przycisku zamknięcia
+    closeButton.addEventListener('mouseenter', () => {
+        closeButton.style.background = 'rgba(255, 255, 255, 0.3)';
+        closeButton.style.transform = 'scale(1.1)';
+    });
+    
+    closeButton.addEventListener('mouseleave', () => {
+        closeButton.style.background = 'rgba(255, 255, 255, 0.2)';
+        closeButton.style.transform = 'scale(1)';
+    });
+    
+    // Dodaj toast do strony
+    document.body.appendChild(toast);
+    
+    // Animacja pojawiania się
+    setTimeout(() => {
+        toast.style.transform = 'translateY(0) scale(1)';
+        toast.style.opacity = '1';
+    }, 100);
+    
+    // Animacja znikania po 5 sekundach
+    setTimeout(() => {
+        toast.style.transform = 'translateY(100px) scale(0.8)';
+        toast.style.opacity = '0';
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.remove();
+            }
+        }, 400);
+    }, 5000);
+    
+    // Dodaj efekt kliknięcia dla zamknięcia
+    closeButton.addEventListener('click', () => {
+        toast.style.transform = 'translateY(100px) scale(0.8)';
+        toast.style.opacity = '0';
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.remove();
+            }
+        }, 400);
+    });
 }
 
 // Walidacja emaila
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
-}
-
-// System powiadomień
-function showNotification(message, type = 'info') {
-    // Usuń istniejące powiadomienia
-    const existingNotification = document.querySelector('.notification');
-    if (existingNotification) {
-        existingNotification.remove();
-    }
-    
-    // Utwórz nowe powiadomienie
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <span>${message}</span>
-            <button class="notification-close">&times;</button>
-        </div>
-    `;
-    
-    // Style dla powiadomienia
-    notification.style.cssText = `
-        position: fixed;
-        top: 90px;
-        right: 20px;
-        max-width: 400px;
-        padding: 15px 20px;
-        border-radius: 10px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        z-index: 10000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        background: ${type === 'success' ? '#10B981' : type === 'error' ? '#EF4444' : '#3B82F6'};
-        color: white;
-        font-weight: 500;
-    `;
-    
-    const content = notification.querySelector('.notification-content');
-    content.style.cssText = `
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 15px;
-    `;
-    
-    const closeBtn = notification.querySelector('.notification-close');
-    closeBtn.style.cssText = `
-        background: none;
-        border: none;
-        color: white;
-        font-size: 20px;
-        cursor: pointer;
-        padding: 0;
-        line-height: 1;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Animacja pojawiania się
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Zamknij powiadomienie
-    const closeNotification = () => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => notification.remove(), 300);
-    };
-    
-    closeBtn.addEventListener('click', closeNotification);
-    
-    // Auto-zamknięcie po 5 sekundach
-    setTimeout(closeNotification, 5000);
 }
 
 // Animacje przy przewijaniu
@@ -299,14 +389,10 @@ window.addEventListener('scroll', function() {
 
 // Optymalizacja obrazów tła dla lepszej wydajności
 function initBackgroundOptimization() {
-    // Preload background images for better performance
+    // Preload background images for better performance - zdjęcie1 dla Hero i zdjęcie3 dla About
     const backgroundImages = [
         'zdjecia/zdjecie1.jpg',
-        'zdjecia/zdjecie2.jpg',
-        'zdjecia/zdjecie3.jpg',
-        'zdjecia/zdjecie4.jpg',
-        'zdjecia/zdjecie5.jpg',
-        'zdjecia/zdjecie6.jpg'
+        'zdjecia/zdjecie3.jpg'
     ];
     
     backgroundImages.forEach(imageSrc => {
@@ -314,8 +400,8 @@ function initBackgroundOptimization() {
         img.src = imageSrc;
     });
     
-    // Optimize background images loading
-    const sections = document.querySelectorAll('section, .hero, .footer');
+    // Optimize background images loading - dla sekcji hero i about
+    const sections = document.querySelectorAll('.hero, .about');
     const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {

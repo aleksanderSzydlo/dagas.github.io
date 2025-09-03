@@ -3,13 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dagas - Transport Paliwa i Usługi Logistyczne | Sosnowiec</title>
-    <meta name="description" content="Firma Dagas w Sosnowcu - transport paliwa, wynajem parkingu dla tirów, przestrzenie warsztatowe i magazynowe, naprawa pojazdów">
+    <title>DAGAS - Transport Paliwa i Usługi Logistyczne | Sosnowiec</title>
+    <meta name="description" content="Firma DAGAS w Sosnowcu - transport paliwa, wynajem parkingu dla tirów, przestrzenie warsztatowe i magazynowe, naprawa pojazdów, usługi spawalnicze">
+    
+    <!-- Favicon - logo strony wyświetlane na zakładce przeglądarki -->
+    <link rel="icon" type="image/png" href="logo/logo przeźroczyste-ikona.png">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="shortcut icon" type="image/png" href="logo/logo przeźroczyste-ikona.png">
+    <link rel="apple-touch-icon" href="logo/logo przeźroczyste-ikona.png">
+    <meta name="theme-color" content="#1E40AF">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aleksanderszydlo.github.io/dagas.github.io/">
+    <meta property="og:title" content="DAGAS - Transport Paliwa i Usługi Logistyczne">
+    <meta property="og:description" content="Profesjonalne usługi transportowe i logistyczne w Sosnowcu">
+    <meta property="og:image" content="logo/logo przeźroczyste.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://aleksanderszydlo.github.io/dagas.github.io/">
+    <meta property="twitter:title" content="DAGAS - Transport Paliwa i Usługi Logistyczne">
+    <meta property="twitter:description" content="Profesjonalne usługi transportowe i logistyczne w Sosnowcu">
+    <meta property="twitter:image" content="logo/logo przeźroczyste.png">
+    
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -188,7 +211,10 @@
             <div class="container">
                 <div class="about-content">
                     <div class="about-text">
-                        <h2>O Firmie DAGAS</h2>
+                        <div class="about-header">
+                            <h2>O Firmie DAGAS</h2>
+                            <img src="logo/logo niebieskie.png" alt="DAGAS Logo" class="about-inline-logo">
+                        </div>
                         <p>Firma DAGAS to rodzinne przedsiębiorstwo z wieloletnim doświadczeniem w branży transportowej i logistycznej. Działamy w Sosnowcu, oferując kompleksowe usługi związane z transportem paliwa, materiałów sypkich, usługi spawalnicze oraz szeroki zakres usług dodatkowych.</p>
                         
                         <div class="features">
@@ -211,9 +237,7 @@
                         </div>
                     </div>
                     <div class="about-image">
-                        <div class="about-logo-container">
-                            <img src="logo/logo niebieskie.png" alt="DAGAS Logo" class="about-logo-image">
-                        </div>
+                        <!-- Pusta prawa kolumna -->
                     </div>
                 </div>
             </div>
@@ -291,18 +315,18 @@
                     </div>
                     <div class="contact-form">
                         <h3>Wyślij wiadomość</h3>
-                        <form>
+                        <form id="contact-form">
                             <div class="form-group">
-                                <input type="text" placeholder="Imię i nazwisko" required>
+                                <input type="text" name="from_name" placeholder="Imię i nazwisko" required>
                             </div>
                             <div class="form-group">
-                                <input type="email" placeholder="Email" required>
+                                <input type="email" name="from_email" placeholder="Email" required>
                             </div>
                             <div class="form-group">
-                                <input type="tel" placeholder="Telefon">
+                                <input type="tel" name="phone" placeholder="Telefon">
                             </div>
                             <div class="form-group">
-                                <select>
+                                <select name="service">
                                     <option value="">Wybierz usługę</option>
                                     <option value="transport">Transport paliwa</option>
                                     <option value="parking">Parking dla TIR-ów</option>
@@ -313,9 +337,12 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <textarea placeholder="Wiadomość" rows="5" required></textarea>
+                                <textarea name="message" placeholder="Wiadomość" rows="5" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Wyślij wiadomość</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span id="btn-text">Wyślij wiadomość</span>
+                                <span id="btn-loading" style="display: none;">Wysyłanie...</span>
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -348,7 +375,7 @@
                     <h4>Kontakt</h4>
                     <ul>
                         <li><strong>+48 123 456 789</strong></li>
-                        <li>kontakt@dagas.pl</li>
+                        <li>biuro@dagas.com.pl</li>
                         <li>ul. Kukułek 41, Sosnowiec</li>
                     </ul>
                 </div>
