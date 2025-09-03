@@ -27,8 +27,55 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Inicjalizacja EmailJS
 function initEmailJS() {
-    // Inicjalizacja EmailJS z public key
-    emailjs.init('3qSdcdYGB_F2FxHQv');
+    try {
+        // Inicjalizacja EmailJS z public key: 3qSdcdYGB_F2FxHQv
+        // Ten klucz umożliwia wysyłanie emaili przez formularz kontaktowy
+        emailjs.init('3qSdcdYGB_F2FxHQv');
+        console.log('✅ EmailJS zainicjalizowany pomyślnie');
+        
+        // Sprawdź czy EmailJS jest dostępny
+        if (typeof emailjs === 'undefined') {
+            console.error('❌ EmailJS nie został załadowany!');
+            return false;
+        }
+        
+        // Test połączenia z EmailJS (opcjonalny)
+        testEmailJSConnection();
+        
+        return true;
+    } catch (error) {
+        console.error('❌ Błąd podczas inicjalizacji EmailJS:', error);
+        return false;
+    }
+}
+
+// Funkcja testowa dla EmailJS
+function testEmailJSConnection() {
+    // Dodaj przycisk testowy do console (tylko w trybie deweloperskim)
+    console.log('🧪 Aby przetestować EmailJS w console, uruchom: testEmailJS()');
+    
+    // Funkcja globalna do testowania
+    window.testEmailJS = function() {
+        const testData = {
+            from_name: 'Test DAGAS',
+            from_email: 'test@dagas.com.pl',
+            message: 'To jest wiadomość testowa z formularza kontaktowego DAGAS.',
+            subject: 'Test wiadomości ze strony',
+            reply_to: 'test@dagas.com.pl',
+            phone: '123456789',
+            service: 'transport',
+            web: 'Dagas'
+        };
+        
+        console.log('🚀 Wysyłanie testowego emaila...');
+        emailjs.send('service_wvhublc', 'template_ypn9c6y', testData)
+            .then(function(response) {
+                console.log('✅ TEST SUCCESS!', response.status, response.text);
+            })
+            .catch(function(error) {
+                console.error('❌ TEST FAILED...', error);
+            });
+    };
 }
 
 // Inicjalizacja mapy Leaflet
@@ -183,16 +230,68 @@ function initContactForm() {
             btnText.style.display = 'none';
             btnLoading.style.display = 'inline';
             
+            // Debugging - wypisz dane formularza
+            console.log('📧 Wysyłanie emaila z danymi:', formData);
+            console.log('🔧 Service ID: service_wvhublc');
+            console.log('🔧 Template ID: template_ypn9c6y');
+            
+            // Sprawdź czy EmailJS jest dostępny
+            if (typeof emailjs === 'undefined') {
+                console.error('❌ EmailJS nie jest dostępny!');
+                showToast('❌ Błąd konfiguracji EmailJS. Skontaktuj się telefonicznie.', 'error');
+                submitButton.disabled = false;
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                return;
+            }
+            
             // Wyślij email przez EmailJS
             emailjs.send('service_wvhublc', 'template_ypn9c6y', formData)
                 .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
+                    console.log('✅ SUCCESS!', response.status, response.text);
                     showToast('✅ Wiadomość została wysłana pomyślnie! Skontaktujemy się z Państwem wkrótce.', 'success');
                     contactForm.reset();
                 })
                 .catch(function(error) {
-                    console.log('FAILED...', error);
-                    showToast('❌ Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie lub skontaktuj się telefonicznie.', 'error');
+                    console.error('❌ FAILED...', error);
+                    
+                    // Szczegółowe informacje o błędzie
+                    let errorMessage = 'Wystąpił błąd podczas wysyłania wiadomości.';
+                    
+                    if (error.status) {
+                        console.error('Status błędu:', error.status);
+                        switch (error.status) {
+                            case 400:
+                                errorMessage = 'Nieprawidłowe dane formularza.';
+                                break;
+                            case 401:
+                                errorMessage = 'Błąd autoryzacji - nieprawidłowy klucz API.';
+                                break;
+                            case 402:
+                                errorMessage = 'Limit wysyłek został przekroczony.';
+                                break;
+                            case 404:
+                                errorMessage = 'Nie znaleziono szablonu email lub usługi.';
+                                break;
+                            case 429:
+                                errorMessage = 'Zbyt wiele żądań - spróbuj ponownie za chwilę.';
+                                break;
+                            default:
+                                errorMessage = `Błąd serwera (${error.status}). Spróbuj ponownie.`;
+                        }
+                    }
+                    
+                    if (error.text) {
+                        console.error('Tekst błędu:', error.text);
+                    }
+                    
+                    // Pokaż błąd z alternatywną opcją kontaktu
+                    showToast(`❌ ${errorMessage}`, 'error');
+                    
+                    // Po 3 sekundach pokaż alternatywną opcję
+                    setTimeout(() => {
+                        showAlternativeContactOption(formData);
+                    }, 3000);
                 })
                 .finally(function() {
                     // Przywróć przycisk
@@ -336,6 +435,32 @@ function showToast(message, type = 'info') {
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+}
+
+// Alternatywna opcja kontaktu gdy EmailJS nie działa
+function showAlternativeContactOption(formData) {
+    const emailBody = encodeURIComponent(
+        `Imię: ${formData.from_name}\n` +
+        `Email: ${formData.from_email}\n` +
+        `Telefon: ${formData.phone}\n` +
+        `Usługa: ${formData.service}\n\n` +
+        `Wiadomość:\n${formData.message}`
+    );
+    
+    const subject = encodeURIComponent('Zapytanie ze strony DAGAS');
+    const mailtoLink = `mailto:biuro@dagas.com.pl?subject=${subject}&body=${emailBody}`;
+    
+    // Pokaż toast z alternatywną opcją
+    showToast(`
+        📧 Możesz wysłać email bezpośrednio:
+        <br><br>
+        <a href="${mailtoLink}" style="color: #FCD34D; text-decoration: underline;" 
+           onclick="window.open(this.href); return false;">
+           Otwórz program email
+        </a>
+        <br><br>
+        lub zadzwoń: <strong>+48 123 456 789</strong>
+    `, 'info');
 }
 
 // Animacje przy przewijaniu
